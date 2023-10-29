@@ -14,6 +14,7 @@ add_shortcode('shoptab', function($attrib,$content)
 		if( isset($attrib['icon']) ) 
 		{
 			$tabicon = $attrib['icon'];
+			// define icon horizontal position
 			if( strstr($tabicon,',') ) {
 				list($ic,$p) = explode(',',$tabicon);
 				$icon2 = ' <span class="tabicon '.$ic.'"></span>';

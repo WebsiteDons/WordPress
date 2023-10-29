@@ -1,2 +1,2 @@
-# WordPress
-WordPress Stuff
+# WordPress Stuff
+Anything relative to WP

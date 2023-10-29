@@ -56,7 +56,7 @@ function is_postMode() {
 	global $pagenow;
 	
 	$postmode = false;
-	if( 'post.php' === $pagenow | 'post-new.php' === $pagenow )
+	if( 'post.php' === $pagenow || 'post-new.php' === $pagenow )
 		$postmode = true;
 	
 	return $postmode;

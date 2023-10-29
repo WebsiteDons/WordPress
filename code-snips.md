@@ -2,6 +2,7 @@
 Anything relative to WP
 
 ## Check if plugin is installed and activated
+`if( plugexist('woocommerce') ) {}`
 ```php
 function plugExist($plugname) {
 	if( file_exists(WP_PLUGIN_DIR.'/'.$plugname) && is_plugin_active($plugname.'/'.$plugname.'.php') ) {

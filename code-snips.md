@@ -46,6 +46,7 @@ function _post_type()
 
 	return (is_string($post_type) ? $post_type : '');
 }
+```
 
 ## Determine if screen is new post or edit
 Solely to make a quick use condition 

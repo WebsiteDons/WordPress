@@ -1,5 +1,4 @@
 ## WooCommerce Product Tabs ShortCode
-```php
 // single shop item tabs
 add_shortcode('shoptab', function($attrib,$content) 
 {
@@ -34,4 +33,3 @@ add_shortcode('shoptab', function($attrib,$content)
 		return $tabs;
 	});
 });
-```

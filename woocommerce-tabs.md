@@ -1,6 +1,6 @@
 ## WooCommerce Product Tabs ShortCode
 
-See custom function at https://github.com/WebsiteDons/WordPress/blob/main/code-snips.md
+See custom functions used in the coding at https://github.com/WebsiteDons/WordPress/blob/main/code-snips.md
 
 ```php
 // single shop item tabs

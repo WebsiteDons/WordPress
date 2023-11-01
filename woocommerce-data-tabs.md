@@ -22,3 +22,5 @@ add_filter('woocommerce_product_data_tabs', function($tabs)
 	return $tabs;
 },100);
 ```
+### Result
+![woo-item-data-custom-tab](https://github.com/WebsiteDons/WordPress/assets/42153624/e636abca-5902-43dd-afc8-264f6f0e2090)

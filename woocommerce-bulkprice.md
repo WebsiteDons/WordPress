@@ -126,7 +126,6 @@ function bulk_price_form()
 			<div class="controls">
 				<label>Category</label>
 				<select name="cats[]" multiple>
-					<option value="">All Categories</option>
 					<?php echo implode($cats); ?>
 				</select>
 			</div>

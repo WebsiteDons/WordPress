@@ -8,7 +8,8 @@ A process to set bulk dislcounts in WooCommerce
 defined('ABSPATH') || exit();
 
 // create menu item in products navigation
-add_action('admin_menu', function() {
+add_action('admin_menu', function() 
+{
 	add_submenu_page(
 	'edit.php?post_type=product', 
 	'Bulk price change',
@@ -22,11 +23,89 @@ add_action('admin_menu', function() {
 // html output
 function bulk_price_form()
 {
+	// form request processor
+	do_request();
+	
+	// create confirmation table for review before sending data
+	if( isset($_GET['confirm']) ) 
+	{
+		?>
+		<h2>Confirm price changes</h2>
+		
+		<?php if( isset($_GET['done']) ) { ?>
+		
+		<h3>Prices updated successfully</h3>
+		<a href="<?php echo admin_url(); ?>edit.php?post_type=product&page=bulk-price-change" class="button">Price form</a>
+		
+		<?php }else{ ?>
+		
+		<form action="edit.php?post_type=product&page=bulk-price-change&confirm=1&done=1" method="post">
+			<table class="wp-list-table widefat fixed striped table-view-list posts">
+				<tr><th>Title</th><th>Regular Price</th><th>Discount Price</th></tr>
+				<?php do_action('get_confirm_table'); ?>
+			</table>
+			<div class="controls">
+			<?php submit_button('Confirm Prices Update','primary','confirm_price_update'); ?>
+			<p class="submit"><a href="<?php echo admin_url(); ?>edit.php?post_type=product&page=bulk-price-change" class="button">Cancel</a></p>
+			</div>
+		</form>
+		
+		<?php
+		}
+	}
+	else
+	{
+	// set price discount form
+	?>
+	<h2>Bulk Price Change</h2>
+	<form action="edit.php?post_type=product&page=bulk-price-change&confirm=1" method="post">
+		<div class="fieldset">
+			<div class="controls">
+				<label>Category</label>
+				<select name="cats[]" multiple>
+					<?php do_action('get_shop_categories'); ?>
+				</select>
+			</div>
+			<div class="controls">
+				<label>Set discount value</label>
+				<input type="number" name="discount_value" min="0" />
+			</div>
+			<div class="controls">
+				<label>Discount Type</label>
+				<select name="discount_type">
+					<option value="fixed_percent">Percent</option>
+					<option value="fixed_amount">Amount</option>
+					<option value="clear_discount">Clear Discount</option>
+				</select>
+			</div>
+			<?php 
+			submit_button('Update Prices'); 
+			?>
+		</div>
+	</form>
+	<?php 
+	}
+	?>
+	
+	<style>
+	.controls {display: flex; gap: 15px; margin-bottom: 15px;}
+	.controls label {width: 180px !important;}
+	</style>
+	<?php
+}
+
+// form request process
+function do_request()
+{
 	// create category select options array
 	$cats=[];
 	foreach(get_terms('product_cat') as $cat) {
 		$cats[] = '<option value="'.$cat->term_id.'">'.$cat->name.'</option>';
 	}
+	$categories = implode($cats);
+	add_action('get_shop_categories',function() use($categories) {
+		echo $categories;
+	});
 	
 	$confirm_table=[];
 	// define temporary text file to store discounted prices as JSON array
@@ -95,66 +174,14 @@ function bulk_price_form()
 				unlink($temp_file);
 			}
 		}
+		
+		$table = implode($confirm_table);
+		add_action('get_confirm_table', function() use($table) {
+			echo $table;
+		});
 	}
 	
-	// create confirmation table for review before sending data
-	if( isset($_GET['confirm']) ) 
-	{
-		?>
-		<h2>Confirm price changes</h2>
-		<form action="edit.php?post_type=product&page=bulk-price-change&confirm=1" method="post">
-			<table class="wp-list-table widefat fixed striped table-view-list posts">
-				<tr><th>Title</th><th>Regular Price</th><th>Discount Price</th></tr>
-				<?php echo implode($confirm_table); ?>
-			</table>
-			<div class="controls">
-			<?php 
-			submit_button('Confirm Prices Update','primary','confirm_price_update'); 
-			?>
-			<p class="submit"><a href="edit.php?post_type=product&page=bulk-price-change" class="button">Cancel</a></p>
-			</div>
-		</form>
-		<?php
-	}
-	else
-	{
-	
-	?>
-	<h2>Bulk Price Change</h2>
-	<form action="edit.php?post_type=product&page=bulk-price-change&confirm=1" method="post">
-		<div class="fieldset">
-			<div class="controls">
-				<label>Category</label>
-				<select name="cats[]" multiple>
-					<?php echo implode($cats); ?>
-				</select>
-			</div>
-			<div class="controls">
-				<label>Set discount value</label>
-				<input type="number" name="discount_value" min="0" />
-			</div>
-			<div class="controls">
-				<label>Discount Type</label>
-				<select name="discount_type">
-					<option value="fixed_percent">Percent</option>
-					<option value="fixed_amount">Amount</option>
-					<option value="clear_discount">Clear Discount</option>
-				</select>
-			</div>
-			<?php 
-			submit_button('Update Prices'); 
-			?>
-		</div>
-	</form>
-	<?php 
-	}
-	?>
-	
-	<style>
-	.controls {display: flex; gap: 15px; margin-bottom: 15px;}
-	.controls label {width: 180px;}
-	</style>
-	<?php
+	return;
 }
 
 // get item ID list

@@ -152,7 +152,7 @@ function bulk_price_form()
 	
 	<style>
 	.controls {display: flex; gap: 15px; margin-bottom: 15px;}
-	.controls label {width: 180px !important;}
+	.controls label {width: 180px;}
 	</style>
 	<?php
 }

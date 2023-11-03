@@ -231,7 +231,8 @@ function woo_items($cats)
 **Confirmation before saving**
 
 This step has individual fields to set prices
-![bulk-price-discount-confirm](https://github.com/WebsiteDons/WordPress/assets/42153624/2d61c0a1-d25f-495b-b0cc-b7fc9271c2c7)
+![table-confirm-change](https://github.com/WebsiteDons/WordPress/assets/42153624/46f5726e-3538-4462-8001-71fcd7e657dd)
+
 
 
 

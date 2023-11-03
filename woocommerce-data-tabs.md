@@ -3,7 +3,7 @@
 // add tabs in admin when creating an item
 add_filter('woocommerce_product_data_tabs', function($tabs) 
 {
-	// remove woocommerce marketplace ad
+	// remove woocommerce marketplace ad if desired
 	unset($tabs['marketplace-suggestions']);
 	remove_action('woocommerce_product_data_panels', ['WC_Marketplace_Suggestions','product_data_panels']);
 	

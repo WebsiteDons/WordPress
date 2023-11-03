@@ -15,9 +15,7 @@ add_action('admin_menu', function() {
 	'Bulk Discount',
 	'manage_options',
 	'bulk-price-change',
-	(function() {
-		bulk_price_form();
-	})
+	'bulk_price_form'
 	);
 },100);
 

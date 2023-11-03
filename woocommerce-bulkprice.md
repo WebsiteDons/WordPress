@@ -1,5 +1,12 @@
 # Bulk price change
 
+### Usage
+**mu-plugins option**
+
+* Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it
+* Copy the above code to the new file and save
+* That's it
+
 ```php
 <?php
 /*
@@ -198,9 +205,4 @@ This step has individual fields to set prices
 ![bulk-price-discount-confirm](https://github.com/WebsiteDons/WordPress/assets/42153624/2d61c0a1-d25f-495b-b0cc-b7fc9271c2c7)
 
 
-## Usage
-**The simple option**
 
-* Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it
-* Copy the above code to the new file and save
-* That's it

@@ -4,8 +4,10 @@
 **mu-plugins option**
 
 * Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it
-* Copy the above code to the new file and save
+* Copy the below code to the new file and save
 * That's it
+
+If using the theme's functions.php is preferred, only copy the coding **_after_** `defined('ABSPATH') || exit();`
 
 ```php
 <?php

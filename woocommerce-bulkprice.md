@@ -68,7 +68,7 @@ function bulk_price_form()
 			</div>
 			<div class="controls">
 				<label>Set discount value</label>
-				<input type="number" name="discount_value" min="0" />
+				<input type="number" name="discount_value" min="0" step="0.01" />
 			</div>
 			<div class="controls">
 				<label>Discount Type</label>
@@ -78,9 +78,7 @@ function bulk_price_form()
 					<option value="clear_discount">Clear Discount</option>
 				</select>
 			</div>
-			<?php 
-			submit_button('Update Prices'); 
-			?>
+			<?php submit_button('Update Prices'); ?>
 		</div>
 	</form>
 	<?php 
@@ -118,7 +116,6 @@ function do_request()
 			$items = woo_items($_POST['cats']);
 			$discount_value = (int)$_POST['discount_value'];
 			$discount_type = $_POST['discount_type'];
-			$new_prices= [];
 			
 			foreach($items as $item) 
 			{
@@ -133,20 +130,17 @@ function do_request()
 						$new_price = ($reg_price - $percentage);
 					}
 					
-					$new_prices[$item] = $new_price;
-					$confirm_table[] = '<tr><td>'.get_the_title($item).'</td><td>'.$reg_price.'</td><td>'.$new_price.'</td></tr>';
+					$confirm_table[] = '<tr>
+					<td>'.get_the_title($item).'</td>
+					<td>'.$reg_price.'</td>
+					<td><input type="number" name="items['.$item.']" min="0" step="0.01" value="'.$new_price.'" /></td>
+					</tr>';
 				}
 				
 				if( 'clear_discount' === $discount_type ) {
 					update_post_meta($item,'_price',$reg_price);
 					delete_post_meta($item,'_sale_price');
 				}
-			}
-			
-			// store new prices in temporary text file for use on confirmation page
-			// the file is deleted once confirmation process is submitted
-			if( !empty($new_prices) ) {
-				file_put_contents($temp_file,json_encode($new_prices));
 			}
 			
 			if( 'clear_discount' === $discount_type ) {
@@ -158,20 +152,12 @@ function do_request()
 		// confirmation process
 		if( isset($_POST['confirm_price_update']) ) 
 		{
-			if( !file_exists($temp_file) )
-				return;
-			
-			$new_prices = file_get_contents($temp_file);
-			$new_prices = json_decode($new_prices,true);
-			if( !empty($new_prices) ) 
+			if( !empty($_POST['items']) ) 
 			{
-				foreach($new_prices as $pid => $discount_price) {
+				foreach($_POST['items'] as $pid => $discount_price) {
 					update_post_meta($pid,'_price',$discount_price);
 					update_post_meta($pid,'_sale_price',$discount_price);
 				}
-				
-				// delete temp file
-				unlink($temp_file);
 			}
 		}
 		

@@ -97,7 +97,19 @@ function bulk_price_form()
 	<style>
 	.controls {display: flex; gap: 15px; margin-bottom: 15px;}
 	.controls label {width: 180px !important;}
+	.flex-col {display: flex; gap: 5px; align-items: center;}
+	.discount-clear {cursor: pointer;}
+	.low-price-alert {background: #f2b8b8 !important;}
 	</style>
+	<script>
+	jQuery(function($) {
+		$(".discount-clear").each(function(i,v) {
+			$(this).on("click",function() {
+				$(v).prev().find("input").val("");
+			});
+		});
+	});
+	</script>
 	<?php
 }
 
@@ -139,10 +151,23 @@ function do_request()
 						$new_price = ($reg_price - $percentage);
 					}
 					
-					$confirm_table[] = '<tr>
+					// set a minimum value which will trigger a visual alert of low price
+					$lowprice= $lowprice_msg='';
+					if( $new_price < 2 ) {
+						$lowprice = ' low-price-alert';
+						$lowprice_msg = '<small><i>this price may be too low</i></small>';
+					}
+					
+					$confirm_table[] = '<tr class="'.$lowprice.'">
 					<td>'.get_the_title($item).'</td>
 					<td>'.$reg_price.'</td>
-					<td><input type="number" name="items['.$item.']" min="0" step="0.01" value="'.$new_price.'" /></td>
+					<td>
+					<div class="flex-col">
+					<span><input type="number" name="items['.$item.']" min="0" step="0.01" value="'.$new_price.'" /></span>
+					<span class="discount-clear dashicons dashicons-no" title="clear value"></span>
+					'.$lowprice_msg.'
+					</div>
+					</td>
 					</tr>';
 				}
 				
@@ -164,6 +189,8 @@ function do_request()
 			if( !empty($_POST['items']) ) 
 			{
 				foreach($_POST['items'] as $pid => $discount_price) {
+					if( empty($discount_price) )
+						continue;
 					update_post_meta($pid,'_price',$discount_price);
 					update_post_meta($pid,'_sale_price',$discount_price);
 				}

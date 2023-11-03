@@ -183,3 +183,9 @@ function woo_items($cats)
 ![wc-bulk-discount](https://github.com/WebsiteDons/WordPress/assets/42153624/d4cd4b45-155f-4670-a6b1-8caf0b4b9cff)
 ![price-confirm](https://github.com/WebsiteDons/WordPress/assets/42153624/6f5a116d-ddfa-4044-8bcb-3563c794d178)
 
+## Usage
+**The simple option**
+
+* Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it
+* Copy the above code to the new file and save
+* That's it

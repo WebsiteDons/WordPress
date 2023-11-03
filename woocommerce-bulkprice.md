@@ -33,7 +33,6 @@ function bulk_price_form()
 	$confirm_table=[];
 	// define temporary text file to store discounted prices as JSON array
 	$temp_file = wp_upload_dir()['basedir'].'/tmp_discount_price';
-	$endpoint = '';
 	
 	if( !empty($_POST) ) 
 	{
@@ -64,14 +63,19 @@ function bulk_price_form()
 				if( 'clear_discount' === $discount_type ) {
 					update_post_meta($item,'_price',$reg_price);
 					delete_post_meta($item,'_sale_price');
-					$endpoint = '&confirm=1';
 				}
 			}
 			
 			// store new prices in temporary text file for use on confirmation page
 			// the file is deleted once confirmation process is submitted
-			if( !empty($new_prices) )
+			if( !empty($new_prices) ) {
 				file_put_contents($temp_file,json_encode($new_prices));
+			}
+			
+			if( 'clear_discount' === $discount_type ) {
+				wp_redirect(admin_url().'edit.php?post_type=product&page=bulk-price-change');
+				exit;
+			}
 		}
 		
 		// confirmation process
@@ -119,7 +123,7 @@ function bulk_price_form()
 	
 	?>
 	<h2>Bulk Price Change</h2>
-	<form action="edit.php?post_type=product&page=bulk-price-change<?php echo $endpoint; ?>" method="post">
+	<form action="edit.php?post_type=product&page=bulk-price-change&confirm=1" method="post">
 		<div class="fieldset">
 			<div class="controls">
 				<label>Category</label>

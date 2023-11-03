@@ -179,3 +179,5 @@ function woo_items($cats)
 }
 
 ```
+### Result
+![wc-bulk-discount](https://github.com/WebsiteDons/WordPress/assets/42153624/d4cd4b45-155f-4670-a6b1-8caf0b4b9cff)

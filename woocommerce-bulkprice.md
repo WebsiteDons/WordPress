@@ -3,7 +3,7 @@
 ### Usage
 **mu-plugins option**
 
-* Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it
+* Create a PHP file in `wp-content/mu-plugins` and name it relatively like **bulk-discount-price.php** If the folder _mu-plugins_ does not exist, just create it, it is a WordPress core directory that allows storage of arbitray function files. It is not created during installation.
 * Copy the below code to the new file and save
 * That's it
 

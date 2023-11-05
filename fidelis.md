@@ -31,5 +31,5 @@ add_action( 'woocommerce_before_single_product', function() {
     $(element_class+" .truncated").toggle();
   });
   ');
-}
+});
 ```

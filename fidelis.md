@@ -13,7 +13,7 @@ add_action( 'woocommerce_before_single_product', function() {
 
     short_html += "<div class=\'truncated\'>";
     short_html += short_content + "... ";
-    short_html += "<span class=\'button read-more\'>Read more</span>
+    short_html += "<span class=\'button read-more\'>Read more</span>";
     short_html += "</div>";
 
     short_html += "<div class=\'truncated\' style=\'display:none\'>";

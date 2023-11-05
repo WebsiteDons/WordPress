@@ -1,3 +1,5 @@
+Breaking up the HTML makes for better clarity and error spotting much easier.
+
 ```php
 add_action( 'woocommerce_before_single_product', function() {
   wc_enqueue_js('

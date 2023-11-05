@@ -8,7 +8,7 @@ add_action( 'woocommerce_before_single_product', function() {
   let full_content = $(element_class).html();
 
   if( full_content.length > char_limit ) {
-    let short_content = content.substring(0, char_limit);
+    let short_content = full_content.substring(0, char_limit);
     let short_html = "";
 
     short_html += "<div class=\'truncated\'>";

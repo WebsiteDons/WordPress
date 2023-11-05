@@ -42,4 +42,8 @@ let full_content = $(element_class).text();
 let word_total = full_content.trim().split(" ").length;
 // filter first 40 words
 let short_content = full_content.split(" ").splice(0,word_limit).join(" ");
+
+if( word_total > word_limit ) {
+  // conditional actions
+}
 ```

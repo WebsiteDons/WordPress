@@ -33,3 +33,13 @@ add_action( 'woocommerce_before_single_product', function() {
   ');
 });
 ```
+### Alternative method to truncate by word count
+```js
+let word_limit = 40;
+// get words without HTML elements
+let full_content = $(element_class).text();
+// get word total not including line space (paragraph). use regex /\s+/ without double quotes to count line spacing
+let word_total = full_content.trim().split(" ").length;
+// filter first 40 words
+let short_content = full_content.split(" ").splice(0,word_limit).join(" ");
+```

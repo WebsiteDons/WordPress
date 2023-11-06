@@ -7,11 +7,24 @@
 * Copy the below code to the new file and save
 * That's it
 
-If using the theme's functions.php is preferred, only copy the coding **_after_** `defined('ABSPATH') || exit();`
+If using the theme's functions.php is preferred, only copy the coding **_after_** `defined('ABSPATH') || exit();` and extract the individual functions
 
 ```php
 <?php
 defined('ABSPATH') || exit('CMSEnergizer.com');
+
+// load the menu hook
+add_action('admin_menu', function() 
+{
+	add_submenu_page(
+	'edit.php?post_type=product', 
+	'Bulk price change',
+	'Bulk Discount',
+	'manage_options',
+	'bulk-price-change',
+	'wcdiscount::bulk_price_form'
+	);
+},100);
 
 class wcDiscount 
 {
@@ -370,6 +383,7 @@ This step has individual fields to set prices
 ![confirm-view](https://github.com/WebsiteDons/WordPress/assets/42153624/ac7eff2c-feec-4393-ac96-3852537bf83f)
 
 **Display any current discount**
+
 This is the home view if there are discounted items
 
 ![current-discount](https://github.com/WebsiteDons/WordPress/assets/42153624/bb08e507-58db-4c9f-bc46-9b9f77ceedf4)

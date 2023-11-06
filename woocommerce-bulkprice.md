@@ -7,7 +7,7 @@
 * Copy the below code to the new file and save
 * That's it
 
-If using the theme's functions.php is preferred, only copy the coding **_after_** `defined('ABSPATH') || exit();` and extract the individual functions
+If using the theme's functions.php is preferred, only copy the coding **_after_** `defined('ABSPATH') || exit();` and extract the individual functions as procedural, remove `public static` and `private static`
 
 ```php
 <?php
